@@ -9,14 +9,19 @@
                     <li>
                         <router-link to="/">Home</router-link>
                     </li>
-                    <li>
+                    <li v-if="!isAuth">
                         <router-link to="/signin">Sign in</router-link>
                     </li>
-                    <li>
+                    <li v-if="!isAuth">
                         <router-link to="/signup">Sign up</router-link>
                     </li>
-                    <li>
+                    <li v-if="isAuth">
                         <router-link to="/dashboard">Dashboard</router-link>
+                    </li>
+                    <li v-if="isAuth">
+                        <div :style="{'display': 'inline'}" @click="signout">
+                            Sign out
+                        </div>
                     </li>
                 </ul>
             </nav>
@@ -26,6 +31,15 @@
 
 <script>
     export default {
-        
+        computed: {
+            isAuth() {
+                return this.$store.getters.isAuth;
+            }
+        },
+        methods: {
+            signout() {
+                this.$store.commit("logout");
+            }
+        }
     }
 </script>

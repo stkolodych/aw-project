@@ -19,7 +19,7 @@
                         <router-link to="/dashboard">Dashboard</router-link>
                     </li>
                     <li v-if="isAuth">
-                        <div :style="{'display': 'inline'}" @click="signout">
+                        <div :style="{'display': 'inline', 'cursor': 'pointer'}" @click="signout">
                             Sign out
                         </div>
                     </li>

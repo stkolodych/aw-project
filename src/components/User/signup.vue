@@ -39,6 +39,7 @@
         },
         methods: {
             onSubmit () {
+                this.$store.dispatch('signup', this.formdata)
                 console.log(this.formdata)
             }
         }

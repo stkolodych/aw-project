@@ -12,7 +12,8 @@ export default new Vuex.Store({
     state: {
       email: "",
       token: "",
-      refresh: ""
+      refresh: "",
+      user: null
     },
     getters: {
       isAuth(state) {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
       localStorage.removeItem("refresh");
 
       router.push('/')
+     },
+     addUserInfo(state, userInfo) {
+      state.user = userInfo;
      }
     },
     actions: {
@@ -95,6 +99,16 @@ export default new Vuex.Store({
             // console.log(authData);
           })
         }
+      },
+      getUserInfo({ commit }, payload) {
+        Vue.http.post(`${FbAuth}/getAccountInfo?key=${FbApiKey}`, {
+          idToken: payload
+        })
+        .then( response => response.json())
+        .then( res => {
+          console.log(res);
+          commit("addUserInfo", res.users[0])
+        })
       }
     }
   })
